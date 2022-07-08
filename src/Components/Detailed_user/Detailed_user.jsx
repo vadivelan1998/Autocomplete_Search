@@ -34,12 +34,12 @@ export const Detailed = ({data, onClose ,isOpen}) => {
                   {data.name}
                 </Text>
                 <br />
-                <Box display={"flex"}>
+                <Box display={"flex"} alignItems={"center"}>
                   <Box
                     w={3}
                     h={3}
                     bg={data.status == "Alive" ? `#00DD74` : `#9EADC3`}
-                    borderRadius={35}
+                    borderRadius={10}
                   ></Box>
                   <Box>
                     <Text fontSize={12} fontWeight={500} pl={2}>
