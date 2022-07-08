@@ -25,7 +25,7 @@ export const Home = () => {
        
     const handleChange = debounce((e) => {
          dispatch(getUser(e.target.value,toast));
-       }, 1500);
+       }, 1000);
 // debounce ends here
 
 useEffect(()=>{
