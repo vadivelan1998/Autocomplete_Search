@@ -3,25 +3,24 @@ import { useState } from "react"
 import { Box,Flex,Avatar,Text,Spacer } from "@chakra-ui/react"
 import { useDispatch } from "react-redux"
 import { getPaginatedUser } from "../../Redux/User/action"
-import { useToast } from "@chakra-ui/react";
-//import  Detailed from "../Detailed_user/Detailed_user";
 import { useDisclosure } from "@chakra-ui/react";
 import React, { Suspense } from "react";
+import { useToast } from "@chakra-ui/react"
 const Detailed = React.lazy(() => import("../Detailed_user/Detailed_user"));
 
 
 export const Basic=()=>{
-  const toast =useToast()
+    const toast = useToast();
   const dispatch = useDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const user = useSelector((store) => store.user.user);
   const info = useSelector((store) => store.user.info);
   const [singleData,setSingleData]=useState({})
-  //console.log(singleData)
+
 
   // Infinite Scrolling starts here
   const scrollToEnd = () => {
-    dispatch(getPaginatedUser(info.next));
+    dispatch(getPaginatedUser(info.next,toast));
   };
 
   window.onscroll = function () {
@@ -33,10 +32,7 @@ export const Basic=()=>{
     }
   };
   //  Infinite Scrolling ends here
-function handle(d){
-  console.log(d)
- // <Detailed/>
-};
+
   return (
     <Box fontFamily={"Arial, Helvetica, sans-serif"} w={400} m={"auto"}>
       {user.map((d) => {
@@ -62,7 +58,7 @@ function handle(d){
 
               <Box w="100%" display={"flex"} alignItems="center">
                 <Box
-                  bg={d.status == "Alive" ? `#00DD74` : `#9EADC3`}
+                  bg={d.status === "Alive" ? `#00DD74` : `#9EADC3`}
                   borderRadius={5}
                   p={1}
                 ></Box>

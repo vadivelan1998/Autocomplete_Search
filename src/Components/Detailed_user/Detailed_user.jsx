@@ -1,4 +1,5 @@
 import { Box,Flex,Avatar,Text,Spacer} from "@chakra-ui/react"
+
 import {
   Modal,
   ModalOverlay,
@@ -7,10 +8,8 @@ import {
   ModalCloseButton,
 } from "@chakra-ui/react";
 import { Grid, GridItem } from "@chakra-ui/react";
-
-
  const Detailed = ({data, onClose ,isOpen}) => {
-  console.log(data,"kkkk")
+  
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -39,7 +38,7 @@ import { Grid, GridItem } from "@chakra-ui/react";
                   <Box
                     w={3}
                     h={3}
-                    bg={data.status == "Alive" ? `#00DD74` : `#9EADC3`}
+                    bg={data.status === "Alive" ? `#00DD74` : `#9EADC3`}
                     borderRadius={6}
                   ></Box>
                   <Box>

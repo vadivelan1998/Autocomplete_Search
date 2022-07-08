@@ -24,7 +24,6 @@ export const getUser = (val,toast) => async (dispatch) => {
        const response = await axios.get(
          `https://rickandmortyapi.com/api/character/?name=${val}&page=1`
        );
-       console.log(response);
        
           dispatch(addUser(response.data));
      
@@ -34,7 +33,7 @@ export const getUser = (val,toast) => async (dispatch) => {
        console.error(error);
        toast({
          title: "404 Not Found",
-         description: "No User Matched With Your Input",
+         description: "No User Found",
          status: "error",
          duration: 4000,
          isClosable: true,
@@ -42,12 +41,17 @@ export const getUser = (val,toast) => async (dispatch) => {
      }
 };
 
-export const getPaginatedUser = (url) => async (dispatch) => {
+export const getPaginatedUser = (url,toast) => async (dispatch) => {
   try {
     const response = await axios.get(url);
-    console.log(response);
     dispatch(addPaginatedUser(response.data));
   } catch (error) {
     console.error(error);
+     toast({
+         title: "You Reached To The End Page",
+         status: "info",
+         duration: 4000,
+         isClosable: true,
+       });
   }
 };

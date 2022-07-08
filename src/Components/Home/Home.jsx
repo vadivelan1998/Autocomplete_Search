@@ -30,7 +30,7 @@ export const Home = () => {
 
 useEffect(()=>{
   dispatch(getUser(''));
-},[])
+},[dispatch])
   return (
     <Box>
       <Heading fontFamily={"Arial, Helvetica, sans-serif"}
