@@ -7,11 +7,16 @@ var init={
 }
 
 export const userReducer=(store=init,{type,payload})=>{
+  console.log(type)
      switch (type) {
        case ADDUSER:
-         return { ...store, user: payload.results,info: payload.info};
-         case ADDPAGINATEDUSER:
-          return {...store,user:[...store.user,...payload.results],info:payload.info}
+         return { ...store, user: payload.results, info: payload.info };
+       case ADDPAGINATEDUSER:
+         return {
+           ...store,
+           user: [...store.user, ...payload.results],
+           info: payload.info,
+         };
        default:
          return { ...store };
      }

@@ -5,9 +5,10 @@ import { Box } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { getUser } from "../../Redux/User/action"
 import { useEffect } from "react";
+import {useToast} from "@chakra-ui/react";
 export const Home = () => {
     const dispatch=useDispatch()
-  
+    const toast = useToast();
  
 // debounce starts here
    const debounce = (func, delay) => {
@@ -23,7 +24,7 @@ export const Home = () => {
     };
        
     const handleChange = debounce((e) => {
-         dispatch(getUser(e.target.value));
+         dispatch(getUser(e.target.value,toast));
        }, 1500);
 // debounce ends here
 
@@ -32,7 +33,8 @@ useEffect(()=>{
 },[])
   return (
     <Box>
-      <Heading>Rick and Morty Search</Heading>
+      <Heading fontFamily={"Arial, Helvetica, sans-serif"}
+>Rick and Morty Search</Heading>
       <br />
       <InputGroup bg={"white"} mt={200} w={400} m={"auto"} mb={4}>
         <InputLeftElement
@@ -43,13 +45,6 @@ useEffect(()=>{
           onChange={handleChange}
           border={"none"}
           borderRadius={0}
-        //    onInput={
-        //     handleChange
-        //     //(e) => {
-        //   //   debounce(main, 1000,user);
-        //   //    dispatch(getUser(e.target.value));
-        //   // }
-        // }
           type="text"
           placeholder="Search for a contact"
         />

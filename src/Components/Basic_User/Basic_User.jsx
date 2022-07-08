@@ -1,40 +1,56 @@
 import { useSelector } from "react-redux"
+import { useState } from "react"
 import { Box,Flex,Avatar,Text,Spacer } from "@chakra-ui/react"
-//import Popup from 'reactjs-popup';
-//import 'reactjs-popup/dist/index.css';
 import { useDispatch } from "react-redux"
 import { getPaginatedUser } from "../../Redux/User/action"
+import { useToast,Button } from "@chakra-ui/react";
+import { Detailed } from "../Detailed_user/Detailed_user";
+import { useDisclosure } from "@chakra-ui/react";
+
 
 export const Basic=()=>{
-  const dispatch=useDispatch()
-  const user=useSelector((store)=>store.user.user)
+  const toast =useToast()
+  const dispatch = useDispatch();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const user = useSelector((store) => store.user.user);
   const info = useSelector((store) => store.user.info);
-  console.log(user,info,"store")
-   const scrollToEnd = () => {
-// setPage((page) => page + 1);
-    console.log(info.next)
-    dispatch(getPaginatedUser(info.next))
-   };
+  const [singleData,setSingleData]=useState({})
+  //console.log(singleData)
 
-   window.onscroll = function () {
-     console.log(window.innerHeight + document.documentElement.scrollTop);
-     console.log(document.documentElement.offsetHeight);
-     if (
-       window.innerHeight + document.documentElement.scrollTop ===
-       document.documentElement.offsetHeight
-     ) {
-       scrollToEnd();
-     }
-   };
+  // Infinite Scrolling starts here
+  const scrollToEnd = () => {
+    dispatch(getPaginatedUser(info.next));
+  };
 
-
-  console.log(user,info,"kkkk")
+  window.onscroll = function () {
+    if (
+      window.innerHeight + document.documentElement.scrollTop ===
+      document.documentElement.offsetHeight
+    ) {
+      scrollToEnd();
+    }
+  };
+  //  Infinite Scrolling ends here
+function handle(d){
+  console.log(d)
+ // <Detailed/>
+};
   return (
-    <Box  fontFamily={`'Source Sans Pro',sans-seriff`}  w={400} m={"auto"}  >
+    <Box fontFamily={`'Source Sans Pro',sans-seriff`} w={400} m={"auto"}>
       {user.map((d) => {
         return (
           <>
-            <Flex bg="#FFFFFF" mb={1} p={5} alignItems="center">
+            <Flex
+              onClick={()=>{
+                setSingleData(d)
+                onOpen()
+              }
+                }
+              bg="#FFFFFF"
+              mb={1}
+              p={5}
+              alignItems="center"
+            >
               <Box display={"flex"} w="100%" alignItems="center">
                 <Avatar name="Dan Abrahmov" src={d.image} size="xs" />
                 <Text fontSize="sm" fontWeight={700} color="#333" pl={3}>
@@ -57,7 +73,8 @@ export const Basic=()=>{
           </>
         );
       })}
+
+      <Detailed data={singleData} isOpen={isOpen} onClose={onClose} />
     </Box>
   );
-
 }
