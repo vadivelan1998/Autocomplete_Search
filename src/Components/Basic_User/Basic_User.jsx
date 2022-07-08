@@ -3,9 +3,11 @@ import { useState } from "react"
 import { Box,Flex,Avatar,Text,Spacer } from "@chakra-ui/react"
 import { useDispatch } from "react-redux"
 import { getPaginatedUser } from "../../Redux/User/action"
-import { useToast,Button } from "@chakra-ui/react";
-import { Detailed } from "../Detailed_user/Detailed_user";
+import { useToast } from "@chakra-ui/react";
+//import  Detailed from "../Detailed_user/Detailed_user";
 import { useDisclosure } from "@chakra-ui/react";
+import React, { Suspense } from "react";
+const Detailed = React.lazy(() => import("../Detailed_user/Detailed_user"));
 
 
 export const Basic=()=>{
@@ -36,16 +38,15 @@ function handle(d){
  // <Detailed/>
 };
   return (
-    <Box fontFamily={`'Source Sans Pro',sans-seriff`} w={400} m={"auto"}>
+    <Box fontFamily={"Arial, Helvetica, sans-serif"} w={400} m={"auto"}>
       {user.map((d) => {
         return (
           <>
             <Flex
-              onClick={()=>{
-                setSingleData(d)
-                onOpen()
-              }
-                }
+              onClick={() => {
+                setSingleData(d);
+                onOpen();
+              }}
               bg="#FFFFFF"
               mb={1}
               p={5}
@@ -74,7 +75,9 @@ function handle(d){
         );
       })}
 
-      <Detailed data={singleData} isOpen={isOpen} onClose={onClose} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Detailed data={singleData} isOpen={isOpen} onClose={onClose} />
+      </Suspense>
     </Box>
   );
 }

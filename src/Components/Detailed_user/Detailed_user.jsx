@@ -1,21 +1,16 @@
-import {Button, Box,Flex,Avatar,Text,Spacer, Divider } from "@chakra-ui/react"
+import { Box,Flex,Avatar,Text,Spacer} from "@chakra-ui/react"
 import {
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
 } from "@chakra-ui/react";
 import { Grid, GridItem } from "@chakra-ui/react";
 
 
-export const Detailed = ({data, onClose ,isOpen}) => {
+ const Detailed = ({data, onClose ,isOpen}) => {
   console.log(data,"kkkk")
-   //const {name}=data.location?.name
-   
-//  console.log(data.location.name,"lo")
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -30,7 +25,13 @@ export const Detailed = ({data, onClose ,isOpen}) => {
               <Spacer />
 
               <Box w="100%" alignItems="center">
-                <Text fontSize="sm" fontWeight={1000} color="#333" pl={3}>
+                <Text
+                  ml={-3}
+                  fontSize="sm"
+                  fontWeight={1000}
+                  color="#333"
+                  pl={3}
+                >
                   {data.name}
                 </Text>
                 <br />
@@ -39,7 +40,7 @@ export const Detailed = ({data, onClose ,isOpen}) => {
                     w={3}
                     h={3}
                     bg={data.status == "Alive" ? `#00DD74` : `#9EADC3`}
-                    borderRadius={10}
+                    borderRadius={6}
                   ></Box>
                   <Box>
                     <Text fontSize={12} fontWeight={500} pl={2}>
@@ -92,3 +93,4 @@ export const Detailed = ({data, onClose ,isOpen}) => {
     </>
   );
 };
+export default Detailed
